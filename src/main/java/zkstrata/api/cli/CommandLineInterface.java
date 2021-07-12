@@ -84,10 +84,10 @@ public class CommandLineInterface {
         Statement statement = new Statement(file, getStatement(file));
         List<Statement> premises = getPremises(cmd);
         setVerbosity(cmd);
-
+        boolean useExperimentalMerkleGadget = getMerkleGadget(cmd);
         SubjectData subjectData = new SubjectData(getWitnessData(cmd), getInstanceData(cmd), getSchemas(cmd));
 
-        return new Arguments(new BulletproofsGadgetsCodeGenerator(name), statement, premises, subjectData);
+        return new Arguments(new BulletproofsGadgetsCodeGenerator(name, useExperimentalMerkleGadget), statement, premises, subjectData);
     }
 
     /**
@@ -209,5 +209,9 @@ public class CommandLineInterface {
                 premises.add(new Statement(file, getStatement(file)));
 
         return premises;
+    }
+
+    private boolean getMerkleGadget(CommandLine cmd) {
+        return cmd.hasOption("use-experimental-merkle-gadget");
     }
 }

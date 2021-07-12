@@ -64,6 +64,13 @@ public class OptionBuilder {
                         .build()
         );
 
+        this.options.addOption(
+                Option.builder()
+                        .longOpt("use-experimental-merkle-gadget")
+                        .desc("use experimental merkle root gadget instead of default one")
+                        .build()
+        );
+
         return this;
     }
 

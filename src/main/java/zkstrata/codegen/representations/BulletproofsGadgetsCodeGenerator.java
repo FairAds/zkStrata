@@ -16,12 +16,16 @@ public class BulletproofsGadgetsCodeGenerator implements CodeGenerator<Bulletpro
     private static final Logger LOGGER = LogManager.getRootLogger();
 
     private String name;
-
+    private boolean useExperimentalMerkleGadget;
     private Map<InstanceVariable, String> instanceVariables = new HashMap<>();
     private Map<WitnessVariable, String> witnessVariables = new HashMap<>();
 
     public BulletproofsGadgetsCodeGenerator(String name) {
         this.name = name;
+    }
+    public BulletproofsGadgetsCodeGenerator(String name, boolean useExperimentalMerkleGadget) {
+        this.name = name;
+        this.useExperimentalMerkleGadget = useExperimentalMerkleGadget;
     }
 
     @Override
@@ -52,7 +56,10 @@ public class BulletproofsGadgetsCodeGenerator implements CodeGenerator<Bulletpro
             Map<String, String> args = process(targetFormat.getVariables());
             StringSubstitutor substitutor = new StringSubstitutor(args, "%(", ")");
             String gadget = substitutor.replace(targetFormat.getFormat());
-
+            if( gadget.contains("MERKLE") && useExperimentalMerkleGadget ) {
+                LOGGER.debug("Using experimental Merkle Tree Gadget: ROOT");
+                gadget = gadget.replace("MERKLE", "ROOT");
+            }
             LOGGER.debug("Generated gadget: {}", gadget);
             gadgets.add(gadget);
         }
