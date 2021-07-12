@@ -18,19 +18,21 @@ jobs:
       run: |
         mvn -B package --file pom.xml
         cp target/zkstratac.jar zkstratac.jar
-    - name: Install rustc nightly 2019-10-26
+    - name: Install rustc nightly 2020-08-20
       uses: actions-rs/toolchain@v1
       with:
-        toolchain: nightly-2019-10-26
+        toolchain: nightly-2020-08-20
         override: true
-    - name: Checkout bulletproofs_gadgets
+        profile: minimal
+        default: true
+    - name: Checkout bulletproofs-gadgets
       uses: actions/checkout@v2
       with:
-        repository: MarcKloter/bulletproofs_gadgets
-        path: bulletproofs_gadgets
-    - name: Build bulletproofs_gadgets
+        repository: Unholster/bulletproof-gadgets
+        path: bulletproof-gadgets
+    - name: Build bulletproofs-gadgets
       run: |
-        cd bulletproofs_gadgets
+        cd bulletproofs-gadgets
         cargo build --release
         cp target/release/prover ./../prover
         cp target/release/verifier ./../verifier
