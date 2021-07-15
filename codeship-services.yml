@@ -1,0 +1,5 @@
+zkStrata:
+  build:
+    image: rust:1.53.0
+    dockerfile_path: Dockerfile
+  cached: true

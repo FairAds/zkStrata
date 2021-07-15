@@ -1,0 +1,10 @@
+- type: serial
+  name: "Tests"
+  steps:
+    - name: "Build"
+      service: zkStrata
+      command: mvn package
+
+    - name: "Test"
+      service: zkStrata
+      command: mvn test
